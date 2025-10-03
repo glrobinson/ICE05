@@ -5,9 +5,14 @@
         margin:0; 
         background:black 
       } 
+      * {
+        color: white
+      }
     </style>
     <script>
-      let ws, msgs = [], ctx = null
+      let ws = []
+      let count = 0;
+      let oppcount = 0
       
       window.onload = function() {
         ws = new WebSocket( 'ws://127.0.0.1:3000' )
@@ -15,27 +20,25 @@
         ws.onopen = () => {
           ws.onmessage = async msg => {
             const pos = await msg.data.text()
-            const [x,y] = pos.split( ':' ).map( v => parseInt(v) )
-
-            ctx.fillStyle = 'red'
-            ctx.fillRect( x,y,50,50 )
+            oppcount = parseInt(pos)
+            const oppScore = document.getElementById("oppScore")
+            oppScore.textContent = oppcount
           }
         }
 
-        const canvas = document.querySelector('canvas')
-        canvas.width = window.innerWidth
-        canvas.height = window.innerHeight
-        ctx = canvas.getContext( '2d' )
-
         window.onclick = e => {
-          ws.send( `${e.pageX}:${e.pageY}` )
-          ctx.fillStyle = 'yellow'
-          ctx.fillRect( e.pageX,e.pageY,50,50 )
+          count++
+          ws.send( count )
+          const myScore = document.getElementById("myScore")
+          myScore.textContent = count
         }
       }
     </script>
   </head>
   <body>
-    <canvas></canvas>
+    <div>
+      <h1 id="myScore">0</h1>
+      <h1 id="oppScore">0</h1>
+    </div>>
   </body>
 </html>
