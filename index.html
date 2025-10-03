@@ -8,6 +8,10 @@
       * {
         color: white
       }
+      body {
+        align-content: center;
+        margin-left: 600px;
+      }
     </style>
     <script>
       let ws = []
@@ -22,7 +26,7 @@
             const pos = await msg.data.text()
             oppcount = parseInt(pos)
             const oppScore = document.getElementById("oppScore")
-            oppScore.textContent = oppcount
+            oppScore.textContent = "Opponent Click Count: " + oppcount
           }
         }
 
@@ -30,15 +34,15 @@
           count++
           ws.send( count )
           const myScore = document.getElementById("myScore")
-          myScore.textContent = count
+          myScore.textContent = "Your Click Count: " + count
         }
       }
     </script>
   </head>
   <body>
     <div>
-      <h1 id="myScore">0</h1>
-      <h1 id="oppScore">0</h1>
-    </div>>
+      <h1 id="myScore">Your Click Count: 0</h1>
+      <h1 id="oppScore">Opponent Click Count: 0</h1>
+    </div>
   </body>
 </html>
