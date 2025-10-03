@@ -59,16 +59,16 @@
             await delay(timer * 1000);
             countdown.textContent = "Stop!"
             going = false
-            
+            ws.send( count )
+            const myScore = document.getElementById("myScore")
+            myScore.textContent = "Your Click Count: " + count
           }
         }
 
         window.onclick = e => { 
           if (going){
             count++
-            ws.send( count )
-            const myScore = document.getElementById("myScore")
-            myScore.textContent = "Your Click Count: " + count
+            
           }
         }
 
@@ -79,8 +79,8 @@
   </head>
   <body>
     <div>
-      <h1 id="myScore">Your Click Count: 0</h1>
-      <h1 id="oppScore">Opponent Click Count: 0</h1>
+      <h1 id="myScore">Your Click Count: ???</h1>
+      <h1 id="oppScore">Opponent Click Count: ???</h1>
       <button id="ready?">Ready?</button>
       <h1 id="countdown"></h1>
     </div>
